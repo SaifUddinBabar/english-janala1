@@ -26,22 +26,56 @@ const displayLevelword =(words)=>
 {
 const wordlevelcontainer = document.getElementById('word-container')
 wordlevelcontainer.innerHTML ="";
+
+
+if(words.length == 0)
+{
+  wordlevelcontainer.innerHTML =
+
+  `
+  <div class=" font-bangla text-center col-span-full py-10 rounded-xl space-y-6">
+  <img class= "mx-auto" src = "./assets/alert-error.png"/>
+    
+    <P class=" text-xl font-medium text-gray-400">এই Lesson এ এখনো কোন Vocabulary যুক্ত করা হয়নি।</P>
+    <h1 class=" font-bold text-4xl">নেক্সট Lesson এ যান।</h1>
+  </div>
+  
+  
+  `
+  
+ 
+}
 words.forEach(word => {
     console.log(word)
     const card= document.createElement('div')
    card.innerHTML = `
    
    
-    <div class=" bg-white rounded-xl shadow-sm text-center py-10 px-5 space-y-4">
+   <div class="bg-white rounded-xl shadow-sm text-center py-10 px-5 space-y-4">
 
-       <h2 class="font-bold text-2xl">${word.word}</h2>
-        <p class="font-semibold ">${word.meaning}</p>
-        <div class="font-bangla text-medium ">${word.pronunciation}</div>
-       <div class="flex justify-between items-center">
-            <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-circle-info"></i></button>
-            <button class="btn"><i class=" bg-[#1A91FF10] hover:bg-[#1A91FF80] fa-solid fa-volume-low "></i></button>
-       </div>
+  <h2 class="font-bold text-2xl">
+    ${word.word ? word.word : "কোনো word পাওয়া যায়নি"}
+  </h2>
+
+  <p class="font-semibold">
+    ${word.meaning ? word.meaning : "কোনো meaning পাওয়া যায়নি"}
+  </p>
+
+  <div class="font-bangla text-medium">
+    ${word.pronunciation ? word.pronunciation : "পাওয়া যায়নি"}
   </div>
+
+  <div class="flex justify-between items-center">
+    <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
+      <i class="fa-solid fa-circle-info"></i>
+    </button>
+    <button class="btn">
+      <i class="fa-solid fa-volume-low bg-[#1A91FF10] hover:bg-[#1A91FF80]"></i>
+    </button>
+  </div>
+
+</div>
+
 
      
     
@@ -60,7 +94,7 @@ const displaydata = lesson =>{
 for (const lessons of lesson.data) {
   const divContainer = document.createElement('div')
   divContainer.innerHTML = `
-    <button onclick="loadlevelword(${lessons.level_no})" class="btn btn-outline btn-primary m-2">
+    <button id= "lesson-btn-${lessons.level_no} " onclick="loadlevelword(${lessons.level_no})" class="btn btn-outline btn-primary m-2">
       <i class="fa-solid fa-book-open"></i> Lessons- ${lessons.level_no}
     </button>
   `

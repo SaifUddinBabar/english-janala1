@@ -168,6 +168,8 @@ const displayLevelword = (words) => {
     manageSpinner(false);
 };
 
+
+
 // Display levels as buttons
 const displaydata = lesson => {
     const container = document.getElementById("container")
@@ -187,3 +189,21 @@ const displaydata = lesson => {
 
 // Initial load
 loaddata();
+document.getElementById("btn-search").addEventListener('click',()=>{
+   removeBtn()
+    const input = document.getElementById('input-search')
+    const searhValule = input.value.trim().toLowerCase()
+    console.log(searhValule)
+    fetch("https://openapi.programming-hero.com/api/words/all")
+    .then(res=>res.json())
+    .then(data=>{
+        const allword = data.data
+        // console.log(allword)
+        const filterword = allword.filter((word)=>
+            word.word.trim().toLowerCase().startsWith(searhValule));
+        // console.log(filterword)
+        displayLevelword(filterword);
+    })
+
+})
+
